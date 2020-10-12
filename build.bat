@@ -27,4 +27,6 @@ if errorlevel 1 (
     exit
 )
 
+copy dependencies\libraries\SDL2\SDL2.dll binaries\SDL2.dll
+
 echo done!
