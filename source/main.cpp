@@ -1,9 +1,7 @@
 #include <iostream>
-
 #include <SDL2/SDL.h>
 
 int main(int argc, char **argv) {
-
     int width = 640, height = 360;
 
     if (SDL_Init(0) != 0) {
