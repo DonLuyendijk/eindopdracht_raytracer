@@ -6,8 +6,8 @@ if not exist binaries ( mkdir binaries )
 set "object_file_names="
 
 rem module names
-rem call :compile_module example
 call :compile_module main
+call :compile_module shape
 
 echo linking
 g++ %object_file_names% ^
