@@ -3,19 +3,14 @@
 if not exist build ( mkdir build )
 if not exist binaries ( mkdir binaries )
 
-echo compiling main.cpp
-g++ source/main.cpp ^
-    -o build/main.o ^
-    -I dependencies/headers ^
-    -c ^
-    -Wall
-if errorlevel 1 (
-    echo failed to compile main.cpp
-    exit
-)
+set "object_file_names="
+
+rem module names
+rem call :compile_module example
+call :compile_module main
 
 echo linking
-g++ build/main.o ^
+g++ %object_file_names% ^
     -o binaries/main.exe ^
     -L dependencies/libraries/SDL2 ^
     -mconsole ^
@@ -30,3 +25,18 @@ if errorlevel 1 (
 copy dependencies\libraries\SDL2\SDL2.dll binaries\SDL2.dll
 
 echo done!
+exit /b 0
+
+:compile_module
+set "object_file_names=%object_file_names% build/%~1.o"
+echo compiling %~1.cpp
+g++ source/%~1.cpp ^
+    -o build/%~1.o ^
+    -I dependencies/headers ^
+    -c ^
+    -Wall
+if errorlevel 1 (
+    echo failed to compile %~1.cpp
+    exit
+)
+exit /b 0
