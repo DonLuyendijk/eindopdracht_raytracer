@@ -2,6 +2,7 @@
 
 #include <iostream>
 #include <cmath>
+#include <cstdlib>
 
 template <typename T>
 class Vec3 {
@@ -32,6 +33,18 @@ public:
     
     inline Vec3<T> normalized() {
         return (*this) / length();
+    }
+
+    inline Vec3<T> abs() {
+        return Vec3<T>(std::abs(x), std::abs(y), std::abs(z));
+    }
+
+    inline Vec3<T> sign() {
+        return Vec3<T>(std::copysign(1.0, x), std::copysign(1.0, y), std::copysign(1.0, z));
+    }
+
+    inline Vec3<T> reflect(Vec3<T> normal) {
+        return (*this) - 2 * normal.dot(*this) * normal;
     }
 
     inline void operator += (Vec3<T> other) {
@@ -112,6 +125,10 @@ public:
 
     inline Vec3<T> operator / (T value) {
         return Vec3<T>(x / value, y / value, z / value);
+    }
+
+    inline Vec3<T> operator - () {
+        return Vec3<T>(-x, -y, -z);
     }
 };
 

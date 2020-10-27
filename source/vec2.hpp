@@ -2,6 +2,7 @@
 
 #include <iostream>
 #include <cmath>
+#include <cstdlib>
 
 template <typename T>
 class Vec2 {
@@ -24,6 +25,18 @@ public:
     
     inline Vec2<T> normalized() {
         return (*this) / length();
+    }
+
+    inline Vec2<T> abs() {
+        return Vec2<T>(std::abs(x), std::abs(y));
+    }
+
+    inline Vec2<T> sign() {
+        return Vec2<T>(std::copysign(1.0, x), std::copysign(1.0, y));
+    }
+
+    inline Vec2<T> reflect(Vec2<T> normal) {
+        return (*this) - 2 * normal.dot(*this) * normal;
     }
 
     inline void operator += (Vec2<T> other) {
@@ -96,6 +109,10 @@ public:
 
     inline Vec2<T> operator / (T value) {
         return Vec2<T>(x / value, y / value);
+    }
+
+    inline Vec2<T> operator - () {
+        return Vec2<T>(-x, -y);
     }
 };
 
